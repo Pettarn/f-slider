@@ -16,39 +16,49 @@ export default {
   },
   computed: {
     isShow() {
-      return this.selected === this.name;
+      return this.selected === this.name || this.flag;
     }
   },
   data() {
     return {
-      selected: '',
-      direction: 'left'
+      selected: "",
+      direction: "onlyleave",
+      flag: false
     };
   },
   watch: {
-      direction () {
-        //   console.log(this.direction)
-      }
+    direction() {
+      //   console.log(this.direction)
+    },
+    flag () {
+        this.$parent.viewportDom = document.querySelector('div[data-power]')
+    }
   }
 };
 </script>
 
 <style scoped>
 .swiper-item {
-    position: absolute;
-    /* left: 20px; */
+  position: absolute;
+  width: 100%;
 }
 .left-enter-active,
 .left-leave-active,
+.right-enter-active,
 .right-leave-active,
-.right-leave-active {
-    transition: 1s all linear;
-    position: absolute;
+.onlyleave-leave-active {
+  transition: 1s all ease;
+  position: absolute;
 }
-.left-enter, .right-leave-to {
-    transform: translateX(100%);
+.left-enter,
+.right-leave-to {
+  transform: translateX(100%);
+  /* left: 100%; */
 }
-.left-leave-to, .right-enter {
-    transform: translateX(-100%);
+.left-leave-to,
+.right-enter,
+.onlyleave-leave-to {
+  transform: translateX(-100%);
+  /* left: -100%; */
 }
 </style>

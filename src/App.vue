@@ -42,12 +42,12 @@ export default {
   padding: 0;
 }
 #app {
-  width: 100%;
+  width: 25%;
   /* height: 150px; */
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .swiper {
   width: 100%;
@@ -58,7 +58,6 @@ export default {
 .swiper-item {
   width: 100%;
   height: 100%;
-  background-color: red;
 }
 .content {
   position: absolute;
