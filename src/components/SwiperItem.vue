@@ -1,6 +1,6 @@
 <template>
   <transition :name="direction">
-    <div class="swiper-item" v-if="isShow">
+    <div class="swiper-item" v-if="isShow" :style="fromSup">
       <slot></slot>
     </div>
   </transition>
@@ -23,7 +23,10 @@ export default {
     return {
       selected: "",
       direction: "onlyleave",
-      flag: false
+      flag: false,
+      fromSup: {
+
+      }
     };
   },
   watch: {
@@ -47,7 +50,7 @@ export default {
 .right-enter-active,
 .right-leave-active,
 .onlyleave-leave-active {
-  transition: 1s all ease;
+  transition: .3s all ease;
   position: absolute;
 }
 .left-enter,

@@ -49,13 +49,20 @@ export default {
       totalDiff: 0
     };
   },
-  computed: {},
+  computed: {
+    // accDistance() {
+    //   return (
+    //     this.targetDom.getBoundingClientRect().left -
+    //     this.targetDom.offsetParent.getBoundingClientRect().left
+    //   );
+    // }
+  },
   mounted() {
     let viewport = document.getElementsByClassName("viewport")[0];
     this.viewportWidth = viewport.clientWidth;
     let __this = this;
     window.onresize = function() {
-      __this.viewportWidth = document.documentElement.clientWidth;
+      __this.viewportWidth = viewport.clientWidth;
     };
     this.showChild();
     this.$children.forEach(child => {
@@ -87,6 +94,9 @@ export default {
         let newIndex = (curIndex + 1) % this.length;
         this.$children.forEach(vm => {
           vm.direction = "left";
+          if (vm.name === 'item2') {
+              console.log(vm.fromSup)
+          }
         });
         this.$emit("input", this.names[newIndex]);
       }, this.timeout);
@@ -97,6 +107,11 @@ export default {
       }
       clearInterval(this.timer);
       this.timer = null;
+      this.targetDom = e.targetTouches[0].target;
+      //   this.accDistance =
+      //     this.targetDom.getBoundingClientRect().left -
+      //     this.targetDom.offsetParent.getBoundingClientRect().left;
+      this.touch.x1 = e.targetTouches[0].clientX;
       let currentIndex = this.names.indexOf(this.currentSelected);
       let right = (currentIndex + 1 + this.length) % this.length;
       let left = (currentIndex - 1 + this.length) % this.length;
@@ -104,19 +119,21 @@ export default {
         let vmIndex = this.names.indexOf(vm.name);
         if (vmIndex === right || vmIndex === left || vmIndex === currentIndex) {
           if (vmIndex === right) {
-            this.target.right = vm;
-          } else if (vmIndex === left) {
-            this.target.left = vm;
-          } else if (vmIndex === currentIndex) {
-            this.target.self = vm;
             vm.direction = "";
             vm.flag = true;
+            this.target.right = vm;
+          } else if (vmIndex === left) {
+            vm.direction = "";
+            vm.flag = true;
+            this.target.left = vm;
+          } else if (vmIndex === currentIndex) {
+            vm.direction = "";
+            vm.flag = true;
+            this.target.self = vm;
           }
         }
       });
-      this.targetDom = e.targetTouches[0].target;
-      this.accDistance = this.targetDom.offsetLeft;
-      this.touch.x1 = e.targetTouches[0].clientX;
+      this.translate(this.targetDom, 0);
     },
     touchmove(e) {
       if (this.targetDom == null) {
@@ -125,7 +142,8 @@ export default {
       this.touch.x2 = e.targetTouches[0].clientX;
       this.totalDiff = this.touch.x2 - this.touch.x1;
 
-      this.translate(this.targetDom, this.totalDiff + this.accDistance);
+      //   this.translate(this.targetDom, this.totalDiff + this.accDistance);
+      this.translate(this.targetDom, this.totalDiff);
     },
     touchend(e) {
       //   console.log(parseInt(getComputedStyle(this.targetDom).left));
@@ -134,7 +152,7 @@ export default {
       if (this.targetDom == null) {
         return;
       }
-      if (this.totalDiff > this.viewportWidth / 3) {
+      if (this.totalDiff > this.viewportWidth / 2) {
         this.translate(
           this.targetDom,
           this.viewportWidth,
@@ -142,16 +160,16 @@ export default {
           (this.viewportWidth - this.totalDiff) / this.viewportWidth,
           false
         );
-        this.target.left.direction = "right";
+        // this.target.left.direction = "right";
         this.$emit("input", this.target.left.name);
-      } else if (-this.totalDiff > this.viewportWidth / 3) {
+      } else if (-this.totalDiff > this.viewportWidth / 2) {
         this.translate(
           this.targetDom,
           -this.viewportWidth + this.totalDiff,
           (this.viewportWidth + this.totalDiff) / this.viewportWidth,
           false
         );
-        this.target.right.direction = "left";
+        // this.target.right.direction = "left";
         this.$emit("input", this.target.right.name);
       } else {
         this.translate(
@@ -161,32 +179,48 @@ export default {
             this.viewportWidth,
           false
         );
-        this.target.self.direction = 'left'
-      }
-      this.touch.x1 = this.touch.x2 = this.totalDiff = null;
-      this.targetDom = null;
-      if (!this.timer) {
-        this.run();
+        // this.$emit("input", this.target.self.name);
+        this.target.self.direction = "onlyleft";
+        console.log(this.currentSelected)
       }
     },
     translate(elem, diff, durationTime, flag) {
-      let name = this.target.self.name
+      let name = this.target.self.name;
       let __this = this;
       setTimeout(() => {
         if (flag === false) {
-            if (__this.target.self.name !== name) {
-                __this.target.left.flag = __this.target.right.flag = flag
-            } else {
-                __this.target.self.flag = flag;
-            }
+          __this.target.self.flag = __this.target.left.flag = __this.target.right.flag = flag;
+          __this.target.self.fromSup = __this.target.left.fromSup = __this.target.right.fromSup = {}
+          __this.target.self.zIndex = 0;
+          __this.target.self.direction = __this.target.left.direction = __this.target.right.direction =
+            "left";
+          this.touch.x1 = this.touch.x2 = this.totalDiff = null;
+          //   this.target.left.direction = this.target.self.direction = this.target.right.direction = 'left'
+          this.targetDom = null;
+          //   this.target.left = this.target.right = this.target.self = null
+
+          if (!this.timer) {
+            this.run();
+          }
         }
-      }, durationTime * 2000);
+      }, durationTime * 300);
       let viewportWidth = this.viewportWidth;
       diff = diff > viewportWidth ? viewportWidth : diff;
       diff = -diff > viewportWidth ? -viewportWidth : diff;
+      this.target.left.fromSup = {
+        left: diff - this.viewportWidth + "px",
+        transitionProperty: "left",
+        transitionDuration: (durationTime || 0) * 0.3 + "s"
+      };
+      this.target.right.fromSup = {
+        left: diff + this.viewportWidth + "px",
+        transitionProperty: "left",
+        transitionDuration: (durationTime || 0) * 0.3 + "s"
+      };
       elem.style.left = diff + "px";
+      elem.style.zIndex = 1;
       elem.style.transitionProperty = "left";
-      elem.style.transitionDuration = (durationTime || 0) * 2 + "s";
+      elem.style.transitionDuration = (durationTime || 0) * 0.3 + "s";
     }
   }
 };
