@@ -1,3 +1,9 @@
+# f-image-slider
+> A swiper component for vue.
+
+## Install
+        yarn add f-image-slider --dev
+
 ## 思路
 -   通过数据`selected`驱动轮播
 -   当`touch`事件触发时，让此时的动画瞬间静止。 `timer消除，transition动画也消除`

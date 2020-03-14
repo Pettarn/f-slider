@@ -2615,6 +2615,16 @@ extsprintf@^1.2.0:
   resolved "https://registry.npm.taobao.org/extsprintf/download/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
+f-image-slider@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/f-image-slider/download/f-image-slider-1.0.1.tgz#5c65c079ae12fd1fb8b693b6c4b369e142764332"
+  integrity sha1-XGXAea4S/R+4tpO2xLNp4UJ2QzI=
+  dependencies:
+    "@babel/core" "^7.8.7"
+    "@babel/preset-env" "^7.8.7"
+    babel-loader "^8.0.6"
+    vue "^2.5.11"
+
 fast-deep-equal@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npm.taobao.org/fast-deep-equal/download/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
