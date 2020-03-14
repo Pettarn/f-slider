@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import Swiper from "./components/Swiper";
-import SwiperItem from "./components/SwiperItem";
+// import Swiper from "./components/Swiper";
+// import SwiperItem from "./components/SwiperItem";
 
 export default {
   name: "app",
@@ -27,10 +27,6 @@ export default {
     return {
       selected: ""
     };
-  },
-  components: {
-    Swiper,
-    SwiperItem
   },
   mounted() {}
 };
