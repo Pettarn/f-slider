@@ -1,7 +1,7 @@
 {
     "name": "f-image-slider",
     "description": "A Vue.js project",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": "Pettarn <1225076678@qq.com>",
     "main": "dist/FImageSlider.umd.js",
     "license": "MIT",
