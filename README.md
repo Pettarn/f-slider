@@ -4,6 +4,31 @@
 ## Install
         yarn add f-image-slider --dev
 
+## Usage
+
+main.js
+
+        import FImageSlider from 'f-image-slider'
+        Vue.use(FImageSlider)
+
+xxx.vue
+
+        <swiper class="swiper" v-model="selected" autoplay>
+            <swiper-item class="swiper-item" name="item1">
+                <div class="content" style="background-color: red">内容一</div>
+            </swiper-item>
+            <swiper-item class="swiper-item" name="item2">
+                <div class="content" style="background-color: orange">内容二</div>
+            </swiper-item>
+            <swiper-item class="swiper-item" name="item3">
+                <div class="content" style="background-color: yellow">内容三</div>
+            </swiper-item>
+            <swiper-item class="swiper-item" name="item4">
+                <div class="content" style="background-color: green">内容四</div>
+            </swiper-item>
+        </swiper>
+
+
 ## 思路
 -   通过数据`selected`驱动轮播
 -   当`touch`事件触发时，让此时的动画瞬间静止。 `timer消除，transition动画也消除`

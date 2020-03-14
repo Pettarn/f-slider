@@ -2616,9 +2616,9 @@ extsprintf@^1.2.0:
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
 f-image-slider@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npm.taobao.org/f-image-slider/download/f-image-slider-1.0.1.tgz#5c65c079ae12fd1fb8b693b6c4b369e142764332"
-  integrity sha1-XGXAea4S/R+4tpO2xLNp4UJ2QzI=
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/f-image-slider/-/f-image-slider-1.0.2.tgz#85493895bb97fe47263cc99fc76f1bdeef09ca7d"
+  integrity sha512-/RzdqzBgu1SD+jQARkC8Y7j1TV5v1q9lLdpX8JFQqAZSe9SCp6kt9C5V781D0ygoeViM/YydiEPcBhJ64lQUTA==
   dependencies:
     "@babel/core" "^7.8.7"
     "@babel/preset-env" "^7.8.7"
