@@ -1,3 +1,5 @@
+![演示](https://github.com/Pettarn/f-image-slider/blob/master/gif/slider_demo.gif?raw=true)
+
 # f-image-slider
 > A swiper component for vue.
 
